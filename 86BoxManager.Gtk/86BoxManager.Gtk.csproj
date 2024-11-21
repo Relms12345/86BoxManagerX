@@ -5,7 +5,7 @@
     <RootNamespace>_86BoxManager</RootNamespace>
     <AssemblyName>86Manager</AssemblyName>
 
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 
     <ApplicationIcon>Resources\86Box-gray.ico</ApplicationIcon>    
