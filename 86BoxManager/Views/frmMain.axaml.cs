@@ -13,9 +13,9 @@ using _86BoxManager.ViewModels;
 using _86BoxManager.Xplat;
 using IOPath = System.IO.Path;
 using RegistryValueKind = _86BoxManager.Registry.ValueKind;
-using ButtonsType = MessageBox.Avalonia.Enums.ButtonEnum;
-using MessageType = MessageBox.Avalonia.Enums.Icon;
-using ResponseType = MessageBox.Avalonia.Enums.ButtonResult;
+using ButtonsType = MsBox.Avalonia.Enums.ButtonEnum;
+using MessageType = MsBox.Avalonia.Enums.Icon;
+using ResponseType = MsBox.Avalonia.Enums.ButtonResult;
 using System.Threading;
 using Avalonia;
 using Avalonia.Input;
@@ -257,7 +257,7 @@ namespace _86BoxManager.Views
             VMCenter.Configure();
         }
 
-        private void Window_OnClosing(object sender, CancelEventArgs e)
+        private void Window_OnClosing(object sender, WindowClosingEventArgs e)
         {
             var cancelQuit = default(bool?);
             frmMain_FormClosing(e, ref cancelQuit);
@@ -540,21 +540,26 @@ namespace _86BoxManager.Views
         }
 
         // Handles things when WindowState changes
-        protected override void HandleWindowStateChanged(WindowState state)
+        protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
         {
-            base.HandleWindowStateChanged(state);
+            base.OnPropertyChanged(change);
 
-            if (state == WindowState.Minimized && minimizeTray)
+            if (change.Property == WindowStateProperty)
             {
-                trayIcon.MakeVisible(true);
-                Hide();
-                return;
-            }
+                var state = (WindowState)change.NewValue;
 
-            if (state == WindowState.Normal)
-            {
-                Show();
-                trayIcon.MakeVisible(false);
+                if (state == WindowState.Minimized && minimizeTray)
+                {
+                    trayIcon.MakeVisible(true);
+                    Hide();
+                    return;
+                }
+
+                if (state == WindowState.Normal)
+                {
+                    Show();
+                    trayIcon.MakeVisible(false);
+                }
             }
         }
 
@@ -723,7 +728,7 @@ namespace _86BoxManager.Views
         private void lstVMs_MouseDoubleClick(object o, DataGridCellPointerPressedEventArgs args)
         {
             var e = args.PointerPressedEventArgs;
-            var point = e.GetCurrentPoint((IVisual)o);
+            var point = e.GetCurrentPoint((Visual)o);
             if (point.Properties.IsLeftButtonPressed && e.ClickCount == 2)
             {
                 var item = lstVMs.GetSelItems()[0];
@@ -748,7 +753,7 @@ namespace _86BoxManager.Views
 
         private void OnTreeButtonRelease(object sender, PointerReleasedEventArgs args)
         {
-            var point = args.GetCurrentPoint((IVisual)sender);
+            var point = args.GetCurrentPoint((Visual)sender);
             if (point.Properties.IsRightButtonPressed)
                 return;
 

@@ -5,9 +5,9 @@ using _86BoxManager.Xplat;
 using Avalonia;
 using Avalonia.ReactiveUI;
 using JetBrains.Annotations;
-using ButtonsType = MessageBox.Avalonia.Enums.ButtonEnum;
-using MessageType = MessageBox.Avalonia.Enums.Icon;
-using ResponseType = MessageBox.Avalonia.Enums.ButtonResult;
+using ButtonsType = MsBox.Avalonia.Enums.ButtonEnum;
+using MessageType = MsBox.Avalonia.Enums.Icon;
+using ResponseType = MsBox.Avalonia.Enums.ButtonResult;
 
 namespace _86BoxManager
 {
@@ -56,7 +56,8 @@ namespace _86BoxManager
                 .UsePlatformDetect()
                 .LogToTrace()
                 .UseReactiveUI();
-            return withLife ? bld.SetupWithClassicDesktopLifetime(args) : (bld, null);
+            
+            return withLife ? bld.SetupWithClassicDesktopLifetime1(args) : (bld, null);
         }
 
         private static bool CheckRunningManagerAndAbort(string[] args)

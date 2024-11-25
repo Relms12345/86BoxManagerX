@@ -3,9 +3,9 @@ using _86BoxManager.API;
 using _86BoxManager.Models;
 using _86BoxManager.Tools;
 using Avalonia.Threading;
-using ButtonsType = MessageBox.Avalonia.Enums.ButtonEnum;
-using MessageType = MessageBox.Avalonia.Enums.Icon;
-using ResponseType = MessageBox.Avalonia.Enums.ButtonResult;
+using ButtonsType = MsBox.Avalonia.Enums.ButtonEnum;
+using MessageType = MsBox.Avalonia.Enums.Icon;
+using ResponseType = MsBox.Avalonia.Enums.ButtonResult;
 
 // ReSharper disable InconsistentNaming
 namespace _86BoxManager.Core
@@ -221,8 +221,7 @@ namespace _86BoxManager.Core
                 OnManagerStartVmInternal(vmName);
                 return;
             }
-            const DispatcherPriority lvl = DispatcherPriority.Background;
-            Dispatcher.UIThread.Post(() => OnManagerStartVmInternal(vmName), lvl);
+            Dispatcher.UIThread.Post(() => OnManagerStartVmInternal(vmName), DispatcherPriority.Background);
         }
 
         private void OnManagerStartVmInternal(string vmName)

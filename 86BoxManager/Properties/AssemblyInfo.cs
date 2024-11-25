@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("86Box Manager")]
 [assembly: AssemblyDescription("A configuration manager for 86Box emulator")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("David Simunič and others")]
+[assembly: AssemblyCompany("David Simunič, Daryl Ronningen and others")]
 [assembly: AssemblyProduct("86Box Manager")]
-[assembly: AssemblyCopyright("Copyright © 2018-2023 David Simunič and others")]
+[assembly: AssemblyCopyright("Copyright © 2018-2024 David Simunič, Daryl Ronningen and others")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("1.7.6.0")]
-[assembly: AssemblyFileVersion("1.7.6.0")]
+[assembly: AssemblyVersion("1.8.0.0")]
+[assembly: AssemblyFileVersion("1.8.0.0")]

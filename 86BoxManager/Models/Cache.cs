@@ -16,7 +16,7 @@ namespace _86BoxManager.Models
 
         public static IList<VMRow> GetAllItems(this DataGrid view)
         {
-            var model = (ObservableCollection<VMRow>)view.Items;
+            var model = (ObservableCollection<VMRow>)view.ItemsSource;
             return model;
         }
 
@@ -27,13 +27,13 @@ namespace _86BoxManager.Models
 
         public static void ClearAll(this DataGrid view)
         {
-            var model = (ObservableCollection<VMRow>)view.Items;
+            var model = (ObservableCollection<VMRow>)view.ItemsSource;
             model.Clear();
         }
 
         public static VMRow Insert(this DataGrid view, string _, VM vm)
         {
-            var model = (ObservableCollection<VMRow>)view.Items;
+            var model = (ObservableCollection<VMRow>)view.ItemsSource;
 
             var nv = new VMRow(vm);
             model.Add(nv);
@@ -43,7 +43,7 @@ namespace _86BoxManager.Models
 
         public static void RemoveItem(this DataGrid view, VMRow item)
         {
-            var model = (ObservableCollection<VMRow>)view.Items;
+            var model = (ObservableCollection<VMRow>)view.ItemsSource;
             model.Remove(item);
         }
 

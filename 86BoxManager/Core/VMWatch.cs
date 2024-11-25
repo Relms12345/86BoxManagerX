@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Threading;
 using _86BoxManager.Tools;
 using _86BoxManager.Models;
-using ButtonsType = MessageBox.Avalonia.Enums.ButtonEnum;
-using MessageType = MessageBox.Avalonia.Enums.Icon;
-using ResponseType = MessageBox.Avalonia.Enums.ButtonResult;
+using ButtonsType = MsBox.Avalonia.Enums.ButtonEnum;
+using MessageType = MsBox.Avalonia.Enums.Icon;
+using ResponseType = MsBox.Avalonia.Enums.ButtonResult;
 
 // ReSharper disable InconsistentNaming
 

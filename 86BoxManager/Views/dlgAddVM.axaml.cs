@@ -6,9 +6,9 @@ using _86BoxManager.Tools;
 using _86BoxManager.Xplat;
 using _86BoxManager.Core;
 using IOPath = System.IO.Path;
-using ButtonsType = MessageBox.Avalonia.Enums.ButtonEnum;
-using MessageType = MessageBox.Avalonia.Enums.Icon;
-using ResponseType = MessageBox.Avalonia.Enums.ButtonResult;
+using ButtonsType = MsBox.Avalonia.Enums.ButtonEnum;
+using MessageType = MsBox.Avalonia.Enums.Icon;
+using ResponseType = MsBox.Avalonia.Enums.ButtonResult;
 
 namespace _86BoxManager.Views
 {

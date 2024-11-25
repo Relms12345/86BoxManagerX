@@ -10,9 +10,9 @@ using System.Linq;
 using _86BoxManager.Core;
 using _86BoxManager.Registry;
 using Avalonia.Media;
-using ButtonsType = MessageBox.Avalonia.Enums.ButtonEnum;
-using MessageType = MessageBox.Avalonia.Enums.Icon;
-using ResponseType = MessageBox.Avalonia.Enums.ButtonResult;
+using ButtonsType = MsBox.Avalonia.Enums.ButtonEnum;
+using MessageType = MsBox.Avalonia.Enums.Icon;
+using ResponseType = MsBox.Avalonia.Enums.ButtonResult;
 using IOPath = System.IO.Path;
 using RegistryValueKind = _86BoxManager.Registry.ValueKind;
 
@@ -42,7 +42,7 @@ namespace _86BoxManager.Views
             #endif
         }
 
-        private void dlgSettings_FormClosing(object sender, CancelEventArgs e)
+        private void dlgSettings_FormClosing(object sender, WindowClosingEventArgs e)
         {
             if (!settingsChanged)
                 return;

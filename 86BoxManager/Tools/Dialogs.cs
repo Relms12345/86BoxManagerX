@@ -5,10 +5,14 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
-using MessageBox.Avalonia;
-using MessageBox.Avalonia.Enums;
-using MessageBox.Avalonia.DTO;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
+using MsBox.Avalonia.Dto;
 using System.Linq;
+using Avalonia.Platform.Storage;
+using MsBox.Avalonia.Controls;
+using MsBox.Avalonia.ViewModels;
+using MsBox.Avalonia.Windows;
 using StartLoc = Avalonia.Controls.WindowStartupLocation;
 
 namespace _86BoxManager.Tools
@@ -30,18 +34,44 @@ namespace _86BoxManager.Tools
                 WindowStartupLocation = loc,
                 SizeToContent = SizeToContent.WidthAndHeight
             };
-            var window = MessageBoxManager.GetMessageBoxStandardWindow(opts);
-            var raw = parent != null ? window.ShowDialog(parent) : window.Show();
+            
+            var window = MessageBoxManager.GetMessageBoxStandard(opts);
+            
+            var _viewModelType = window.GetType().GetField("_viewModel", BindingFlags.Instance | BindingFlags.NonPublic);
+            var _viewModel = (MsBoxStandardViewModel)_viewModelType?.GetValue(window);
+            
+            var _viewType = window.GetType().GetField("_view", BindingFlags.Instance | BindingFlags.NonPublic);
+            var _view = (MsBoxStandardView)_viewType?.GetValue(window);
+            
+            _viewModel.SetFullApi(_view);
+            var win = new MsBoxWindow
+            {
+                Content = _view,
+                DataContext = _viewModel
+            };
+            win.Closed += _view.CloseWindow;
+            var tcs = new TaskCompletionSource<ButtonResult>();
+
+            _view.SetCloseAction(() =>
+            {
+                tcs.TrySetResult(_view.GetButtonResult());
+                win.Close();
+            });
+
+            win.Show();
+
+            var buttonResult = tcs.Task;
+            
+            //var raw = parent != null ? window.ShowWindowDialogAsync(parent) : window.ShowAsync();
+            
             if (Application.Current is var app)
             {
                 var flags = BindingFlags.NonPublic | BindingFlags.Instance;
-                var windowField = window.GetType().GetField("_window", flags)!;
-                var windowObj = (Window)windowField.GetValue(window)!;
                 if (parent?.Icon is { } wi)
-                    windowObj.Icon = wi;
-                app.Run(windowObj);
+                    win.Icon = wi;
+                app.Run(win);
             }
-            var res = raw.GetAwaiter().GetResult();
+            var res = buttonResult.GetAwaiter().GetResult();
             return res;
         }
 
@@ -59,19 +89,18 @@ namespace _86BoxManager.Tools
 
         public static async Task<string> SelectFolder(string title, string dir, Window parent)
         {
-            var dialog = new OpenFolderDialog
-            {
-                Title = title, Directory = dir
-            };
-
+            var storage = parent.StorageProvider;
+            
+            var file = await storage.OpenFolderPickerAsync(new FolderPickerOpenOptions
+                { Title = title, AllowMultiple = false, SuggestedStartLocation = await storage.TryGetFolderFromPathAsync(dir) });
+            
             string result = null;
-            var raw = dialog.ShowAsync(parent);
-            var res = await raw;
 
-            if (!string.IsNullOrWhiteSpace(res))
+            if (file.Count > 0)
             {
-                result = res;
+                result = file[0].Path.AbsolutePath;
             }
+
             return result;
         }
 
